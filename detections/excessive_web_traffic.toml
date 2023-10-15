@@ -1,0 +1,34 @@
+[rule]
+author = ["Jarrett Sams"]
+description = "Triggers when more than 1000 queries have been observed in a 5 minute window."
+from = "now-6m" # look-back time: 6 minutes. Change as needed.
+name = "Excessive Web Traffic"
+risk_score = 47
+severity = "medium"
+type = "threshold"
+rule_id = "00000000-0000-0000-0000-000000000004"
+query = '''
+event.dataset: "zeek.http"
+'''
+
+# if type is "threshold" instead, add this here:
+[rule.threshold]
+field = ["source.ip", "destination.ip"]
+value = 1000
+
+[[rule.threat]] # Example Tactic, Technique, Sub-Technique. Change as needed.
+framework = "MITRE ATT&CK"
+[[rule.threat.technique]]
+id = "T1046"
+name = "Network Service Discovery"
+reference = "https://attack.mitre.org/techniques/T1046/"
+
+[rule.threat.tactic]
+id = "TA0007"
+name = "Discovery"
+reference = "https://attack.mitre.org/tactics/TA0007/"
+
+# Optional Fields:
+# throttle: 7d
+# version: 1
+# interval: 5m

@@ -1,0 +1,41 @@
+[rule]
+author = ["Jarrett Sams"]
+description = "Using sysmon_operational data, we're triggering on Powershell logs where Invoke-WebRequest retrieves and executes a .bat file."
+from = "now-6m" # look-back time: 6 minutes. Change as needed.
+name = "Powershell Invoke-WebRequest Function downloading a BAT file"
+risk_score = 25
+severity = "low"
+type = "query"
+rule_id = "00000000-0000-0000-0000-000000000007"
+query = '''
+event.dataset: "windows.sysmon_operational" and process.parent.name: powershell.exe and process.parent.command_line: *Invoke-WebRequest* and process.command_line: *bat*
+'''
+
+# if type is "threshold" instead, uncomment and modify below:
+# [rule.threshold]
+# field = ["host.hostname"]
+# value = 100
+
+[[rule.threat]] # Example Tactic, Technique, Sub-Technique. Change as needed.
+framework = "MITRE ATT&CK"
+[[rule.threat.technique]]
+id = "T1059"
+name = "Command and Scripting Interpreter"
+reference = "https://attack.mitre.org/techniques/T1059/"
+
+[[rule.threat.technique.subtechnique]]
+id = "T1059.001"
+name = "PowerShell"
+reference = "https://attack.mitre.org/techniques/T1059/001/"
+
+
+[rule.threat.tactic]
+id = "TA0002"
+name = "Execution"
+reference = "https://attack.mitre.org/tactics/TA0002/"
+
+
+# Optional Fields:
+# throttle: 7d
+# version: 1
+# interval: 5m

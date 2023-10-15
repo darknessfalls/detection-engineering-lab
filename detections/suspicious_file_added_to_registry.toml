@@ -1,0 +1,41 @@
+[rule]
+author = ["Jarrett Sams"]
+description = "This alert looks for .ps1 files added to autorun on boot locations in the Windows Registry."
+from = "now-6m" # look-back time: 6 minutes. Change as needed.
+name = "Suspicious File Added to Registry"
+risk_score = 25
+severity = "low"
+type = "query"
+rule_id = "00000000-0000-0000-0000-000000000008"
+query = '''
+event.dataset: "windows.sysmon_operational" and event.action: "Registry value set (rule: RegistryEvent)" and  registry.path *Microsoft\\\\Windows\\\\CurrentVersion\\\\Run* and registry.data.strings: *.ps1
+'''
+
+# if type is "threshold" instead, uncomment and modify below:
+# [rule.threshold]
+# field = ["host.hostname"]
+# value = 100
+
+[[rule.threat]] # Example Tactic, Technique, Sub-Technique. Change as needed.
+framework = "MITRE ATT&CK"
+[[rule.threat.technique]]
+id = "T1547"
+name = "Boot or Logon Autostart Execution"
+reference = "https://attack.mitre.org/techniques/T1547/"
+
+[[rule.threat.technique.subtechnique]]
+id = "T1547.001"
+name = "Registry Run Keys / Startup Folder"
+reference = "https://attack.mitre.org/techniques/T1547/001/"
+
+
+[rule.threat.tactic]
+id = "TA0003"
+name = "Persistence"
+reference = "https://attack.mitre.org/tactics/TA0003/"
+
+
+# Optional Fields:
+# throttle: 7d
+# version: 1
+# interval: 5m

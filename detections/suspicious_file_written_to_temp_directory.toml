@@ -1,0 +1,47 @@
+[rule]
+author = ["Jarrett Sams"]
+description = "This alert looks for both specific files and file extensions written to a path containing Windows/Temp/."
+from = "now-6m" # look-back time: 6 minutes. Change as needed.
+name = "Suspicious File Written to Temp Directory"
+risk_score = 25
+severity = "low"
+type = "query"
+rule_id = "00000000-0000-0000-0000-000000000009"
+query = '''
+event.dataset: "endpoint.events.file" and event.action: (creation or overwrite) and process.name: "powershell.exe" and file.path: "Windows\\\\Temp\\\\* and file.name: (History or *.txt)"
+'''
+
+# if type is "threshold" instead, uncomment and modify below:
+# [rule.threshold]
+# field = ["host.hostname"]
+# value = 100
+
+[[rule.threat]] # Example Tactic, Technique, Sub-Technique. Change as needed.
+framework = "MITRE ATT&CK"
+[[rule.threat.technique]]
+id = "T1082"
+name = "System Information Discovery"
+reference = "https://attack.mitre.org/techniques/T1082/"
+
+[rule.threat.tactic]
+id = "TA0007"
+name = "Discovery"
+reference = "https://attack.mitre.org/tactics/TA0007/"
+
+[[rule.threat]] # Example Tactic, Technique, Sub-Technique. Change as needed.
+framework = "MITRE ATT&CK"
+[[rule.threat.technique]]
+id = "T1217"
+name = "Browser Information Discovery"
+reference = "https://attack.mitre.org/techniques/T1217/"
+
+[rule.threat.tactic]
+id = "TA0007"
+name = "Discovery"
+reference = "https://attack.mitre.org/tactics/TA0007/"
+
+
+# Optional Fields:
+# throttle: 7d
+# version: 1
+# interval: 5m
