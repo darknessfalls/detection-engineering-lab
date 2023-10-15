@@ -123,8 +123,8 @@ def getMapping(mitreData):
             except KeyError:
                 pass
 
-    if failure != 0: # error handling
-        sys.exit(1)
+if failure != 0: # error handling
+    sys.exit(1)
 
 getMapping(mitreData)
 
