@@ -13,6 +13,8 @@ headers = {
 mitreData = requests.get(url, headers=headers).json()
 mitreMapped = {}
 
+failure = 0 # error handling
+
 # function to iterate over MITRE data and create smaller subset of easily-readable data
 def getMapping(mitreData):
     for object in mitreData['objects']:
@@ -82,6 +84,7 @@ def getMapping(mitreData):
             # Check to ensure MITRE Tactics exist
             if tactic not in mitre_tactic_list:
                 print("The MITRE Tactic supplied does not exist: " + "\"" + tactic + "\"" + " in " + file)
+                failure = 1 # error handling
 
             # Check to make sure the MITRE Technique ID is valid
             try:
@@ -89,6 +92,7 @@ def getMapping(mitreData):
                     pass
             except KeyError:
                 print("Invalid MITRE Technique ID: " + "\"" + technique_id + "\"" + " in " + file)
+                failure = 1 # error handling
 
             # Check to see if the MITRE TID + Name combo is valid
             try:
@@ -96,6 +100,7 @@ def getMapping(mitreData):
                 alert_name = line['technique_name']
                 if alert_name != mitre_name:
                     print("MITRE Technique ID and Name Mismatch in " + file + " EXPECTED: " + "\"" + mitre_name  + "\"" + " GIVEN: "  + "\"" + alert_name + "\"")
+                    failure = 1 # error handling
             except KeyError:
                 pass
 
@@ -106,6 +111,7 @@ def getMapping(mitreData):
                     alert_name = line['subtechnique_name']
                     if alert_name != mitre_name:
                         print("MITRE Sub-Technique ID and Name Mismatch in " + file + " EXPECTED: " + "\"" + mitre_name  + "\"" + " GIVEN: "  + "\"" + alert_name + "\"")
+                        failure = 1 # error handling
             except KeyError:
                 pass
 
@@ -113,9 +119,12 @@ def getMapping(mitreData):
             try:
                 if mitreMapped[technique_id]['deprecated'] == True:
                     print("Deprecated MITRE Technique ID: " + "\"" + technique_id + "\"" + " in " + "\"" + file)
+                    failure = 1 # error handling
             except KeyError:
                 pass
-            
+
+    if failure != 0: # error handling
+        sys.exit(1)
 
 getMapping(mitreData)
 

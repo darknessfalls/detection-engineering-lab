@@ -4,6 +4,8 @@ import tomllib
 import sys
 import os
 
+failure = 0 # error handling
+
 # get to the directory we need, iterate over it, and print availble TOML files
 for root, dirs, files in os.walk("detections/"):
     for file in files:
@@ -35,17 +37,9 @@ for root, dirs, files in os.walk("detections/"):
                                             
                 if missing_fields:
                     print("You are missing the " + str(missing_fields) + " field in the " + file + " file." )
+                    failure = 1 # error handling
                 else:
                     print("Validation Status for " + file + ": FILE IS VALID.")
 
-
-
-
-
-
-
-
-                # ask user for toml file to import
-                # file = input("Please provide the file path to the file: ")
-                # with open(file,"rb") as toml:
-                #    alert = tomllib.load(toml)
+if failure != 0: # error handling
+    sys.exit(1)
