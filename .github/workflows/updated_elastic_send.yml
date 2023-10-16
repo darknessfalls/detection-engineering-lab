@@ -3,7 +3,7 @@ name: Update Elastic Detections
 on:
   push:
     path:
-      - '**.toml'
+      '**.toml'
   workflow_dispatch:
 
 jobs:
