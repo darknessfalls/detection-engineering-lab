@@ -12,7 +12,7 @@ headers = {
     'Authorization': 'ApiKey ' + api_key
 }
 
-changed_files = os.environ["CHANGED_FILES"]
+changed_files = os.environ['CHANGED_FILES']
 
 data = ""
 
