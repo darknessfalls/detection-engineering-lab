@@ -25,7 +25,6 @@ for root, dirs, files in os.walk("detections/"):
                 full_path = os.path.join(root, file) # Use root and file varialbes to create the path to the file
                 with open(full_path,"rb") as toml:
                     alert = tomllib.load(toml)
-
                 # grabbing only the fields required by Elastic. Can be modified to include more fields.
                 if alert['rule']['type'] == "query": # query based alert
                     required_fields = ['author', 'description', 'name', 'rule_id', 'risk_score', 'severity', 'type', 'query', 'threat']
