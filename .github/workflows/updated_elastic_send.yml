@@ -1,4 +1,4 @@
-name: Send Detections to Elastic
+name: Update Elastic Detections
 
 on:
   push:
