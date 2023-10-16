@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ELASTIC_KEY: ${{ secrets.ELASTIC_KEY }}
-
     steps:
       - uses: actions/checkout@v4
         with:
@@ -29,7 +28,8 @@ jobs:
         env:
           ELASTIC_KEY: ${{ secrets.ELASTIC_KEY }}
           CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-      - run: pip install requests
-      - run: python development/update_alert.py
+        run: | 
+          pip install requests
+          python development/update_alert.py
 
 
