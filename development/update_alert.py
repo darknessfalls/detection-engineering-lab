@@ -5,14 +5,14 @@ import os
 import tomllib
 
 url = "https://a03d60d07f6c4ccbb86cc0af9775d2df.us-central1.gcp.cloud.es.io:9243/api/detection_engine/rules"
-api_key = os.environ["ELASTIC_KEY"]
+api_key = os.environ['ELASTIC_KEY']
 headers = {
     'Content-Type': 'application/json',
     'kbn-xsrf': 'true',
     'Authorization': 'ApiKey ' + api_key
 }
 
-changed_files = os.environ["CHANGED_FILES"]
+changed_files = os.environ['CHANGED_FILES']
 
 data = ""
 
