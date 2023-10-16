@@ -23,7 +23,7 @@ jobs:
       # steps.changed-files.outputs.all_changed_files object    
       - name: Get Updated/Changed Files
         id: changed-files
-      - uses: tj-actions/changed-files@v39
+        uses: tj-actions/changed-files@v39
       
       - name: Run Update Script
         env:
