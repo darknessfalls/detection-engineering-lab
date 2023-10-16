@@ -23,14 +23,13 @@ jobs:
       - name: Get Updated/Changed Files
         id: changed-files
         uses: tj-actions/changed-files@v39
-      
-      - name: Install requests module
-        run: pip install requests
 
       - name: Run Update Script
         env:
           ELASTIC_KEY: ${{ secrets.ELASTIC_KEY }}
           CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-        run: python development/update_alert.py
+        run: |
+          pip install requests
+          python development/update_alert.py
 
 
