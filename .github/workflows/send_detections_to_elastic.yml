@@ -1,13 +1,13 @@
-name: TOML and MITRE Validation
+name: Send Detections to Elastic
 
 on:
-  push:
-    - '**.toml'
   workflow_dispatch:
 
 jobs:
-  toml-validation:
+  elastic-detections-send:
     runs-on: ubuntu-latest
+    env:
+      ELASTIC_KEY: ${{ secrets.ELASTIC_KEY }}
 
     steps:
       - uses: actions/checkout@v3
@@ -15,6 +15,5 @@ jobs:
         with:
           python-version: '3.11.5'
       - run: pip install requests
-      - run: python development/validation.py
-      - run: python development/mitre.py
+      - run: python development/toml_to_json.py
 
