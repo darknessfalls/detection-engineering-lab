@@ -12,27 +12,30 @@ headers = {
     'Authorization': 'ApiKey ' + api_key
 }
 
+changed_files = os.environ["CHANGED_FILES"]
+
 data = ""
 
 # get to the directory we need, iterate over it, and print availble TOML files
 for root, dirs, files in os.walk("detections/"):
     for file in files:
-        data = "{\n" # creating the JSON syntax conversion with an opening curly braces and a newline (Enter)
-        if file.endswith(".toml"):
-            full_path = os.path.join(root, file) # Use root and file varialbes to create the path to the file
-            with open(full_path,"rb") as toml:
-                alert = tomllib.load(toml)
+        if file in changed_files:
+            data = "{\n" # creating the JSON syntax conversion with an opening curly braces and a newline (Enter)
+            if file.endswith(".toml"):
+                full_path = os.path.join(root, file) # Use root and file varialbes to create the path to the file
+                with open(full_path,"rb") as toml:
+                    alert = tomllib.load(toml)
 
-                # grabbing only the fields required by Elastic. Can be modified to include more fields.
-                if alert['rule']['type'] == "query": # query based alert
-                    required_fields = ['author', 'description', 'name', 'rule_id', 'risk_score', 'severity', 'type', 'query', 'threat']
-                elif alert['rule']['type'] == "eql": # event correlation alert
-                    required_fields = ['author', 'description', 'name', 'rule_id', 'risk_score', 'severity', 'type', 'query', 'language', 'threat']
-                elif alert['rule']['type'] == "threshold": # threshold based alert
-                    required_fields = ['author', 'description', 'name', 'rule_id', 'risk_score', 'severity', 'type', 'query', 'threshold', 'threat']
-                else:
-                    print("Unsupported rule type found in: " + full_path)
-                    break
+                    # grabbing only the fields required by Elastic. Can be modified to include more fields.
+                    if alert['rule']['type'] == "query": # query based alert
+                        required_fields = ['author', 'description', 'name', 'rule_id', 'risk_score', 'severity', 'type', 'query', 'threat']
+                    elif alert['rule']['type'] == "eql": # event correlation alert
+                        required_fields = ['author', 'description', 'name', 'rule_id', 'risk_score', 'severity', 'type', 'query', 'language', 'threat']
+                    elif alert['rule']['type'] == "threshold": # threshold based alert
+                        required_fields = ['author', 'description', 'name', 'rule_id', 'risk_score', 'severity', 'type', 'query', 'threshold', 'threat']
+                    else:
+                        print("Unsupported rule type found in: " + full_path)
+                        break
 
                 # Converter code and more formatting!
                 for field in alert['rule']:

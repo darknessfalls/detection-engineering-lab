@@ -16,16 +16,21 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
-
-      - name: Get changed files
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.5'
+      
+      # steps.changed-files.outputs.all_changed_files object    
+      - name: Get Updated/Changed Files
         id: changed-files
         uses: tj-actions/changed-files@v39
-
-      # NOTE: `since_last_remote_commit: true` is implied by default and falls back to the previous local commit.
-
-      - name: List all changed files
+      
+      - name: Run Update Script
+        env:
+          ELASTIC_KEY: ${{ secrets.ELASTIC_KEY }}
+          CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
+          pip install requests
+          python development/update_alert.py
+
 
