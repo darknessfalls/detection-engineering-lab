@@ -2,8 +2,8 @@
 author = ["Jarrett Sams"]
 description = "Detects Nmap and Nikto User Agent strings."
 from = "now-6m" # look-back time: 6 minutes. Change as needed.
-name = "Example :)"
-risk_score = 25
+name = "Example number 2 :):)"
+risk_score = 5
 severity = "low"
 type = "query"
 rule_id = "00000000-0000-0000-0000-000000000010"
