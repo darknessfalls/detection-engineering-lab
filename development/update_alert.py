@@ -52,10 +52,17 @@ for root, dirs, files in os.walk("detections/"):
             # print(data) # testing for "trouble" alerts when uploading to Elastic
 
             rule_id = alert['rule']['rule_id']
-            url = url + "?rule_id=" + rule_id
+            update_url = url + "?rule_id=" + rule_id
 
-            elastic_data = requests.put(url, headers=headers, data=data).json()
-            print(elastic_data)
+            elastic_data = requests.put(update_url, headers=headers, data=data).json()
+        
+            # pushing new alerts
+            for key in elastic_data:
+                if key == "status_code":
+                    if 404 == elastic_data["status_code"]:
+                        elastic_data = requests.post(url, headers=headers, data=data).json()
+                        print(elastic_data)
+
 
 
 
