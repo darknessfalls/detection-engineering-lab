@@ -73,6 +73,7 @@ outF = open(output_path, "w")
 outF.write("# Detection Report\n")
 
 # table for current month
+
 for line in current.values():
     date = line['date']
     name = line['name']
