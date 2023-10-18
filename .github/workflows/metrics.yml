@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11.5'
-      - run: pip install python-dateutils
+      - run: pip install python-dateutil
       - run: python development/toml_to_report.py
       - run: |
           git config user.name github-actions
