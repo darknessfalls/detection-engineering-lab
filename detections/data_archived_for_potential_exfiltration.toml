@@ -1,3 +1,6 @@
+[metadata]
+creation_date = "2023/02/01"
+
 [rule]
 author = ["Jarrett Sams"]
 description = "This rule looks for.zip files being created in a path containing Windows/Temp."

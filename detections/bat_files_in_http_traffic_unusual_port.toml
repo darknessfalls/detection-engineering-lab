@@ -1,3 +1,5 @@
+
+
 [rule]
 author = ["Jarrett Sams"]
 description = "Bat files observed in HTTP traffic on a port that is not the typical HTTP port 80."

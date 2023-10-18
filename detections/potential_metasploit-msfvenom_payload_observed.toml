@@ -1,3 +1,6 @@
+[metadata]
+creation_date = "2023/05/01"
+
 [rule]
 author = ["Jarrett Sams"]
 description = "This alert is triggered by sysmon_operational logs that contains default Metasploit/MSFvenom Powershell reverse shell code/string."

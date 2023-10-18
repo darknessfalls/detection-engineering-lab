@@ -1,3 +1,6 @@
+[metadata]
+creation_date = "2023/07/01"
+
 [rule]
 author = ["Jarrett Sams"]
 description = "Using sysmon_operational data, we're triggering on Powershell logs where Invoke-WebRequest retrieves and executes a .bat file."

@@ -1,3 +1,6 @@
+[metadata]
+creation_date = "2023/08/01"
+
 [rule]
 author = ["Jarrett Sams"]
 description = "This alert looks for .ps1 files added to autorun on boot locations in the Windows Registry."

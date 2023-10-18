@@ -1,3 +1,6 @@
+[metadata]
+creation_date = "2023/09/01"
+
 [rule]
 author = ["Jarrett Sams"]
 description = "This alert looks for both specific files and file extensions written to a path containing Windows/Temp/."

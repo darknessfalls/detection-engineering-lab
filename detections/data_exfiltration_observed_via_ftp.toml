@@ -1,3 +1,6 @@
+[metadata]
+creation_date = "2023/03/01"
+
 [rule]
 author = ["Jarrett Sams"]
 description = "This alert looks for .zip files being sent off-network via FTP."

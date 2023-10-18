@@ -1,3 +1,6 @@
+[metadata]
+creation_date = "2023/04/01"
+
 [rule]
 author = ["Jarrett Sams"]
 description = "Triggers when more than 1000 queries have been observed in a 5 minute window."
