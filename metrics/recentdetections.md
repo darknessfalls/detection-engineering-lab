@@ -1,6 +1,6 @@
 # Detection Report
 ## Current Month
-### New Alerts
+### Alerts
 | Date | Alert | Author | Risk Score | Severity |
 | --- | --- | --- | --- | --- |
 |2023/10/01|Web Scanner Activity - Nmap and Nikto|['Jarrett Sams']|25|low|
@@ -9,7 +9,7 @@
 | Date | Alert | Author | Risk Score | Severity |
 | --- | --- | --- | --- | --- |
 |2023/09/01|Suspicious File Written to Temp Directory|['Jarrett Sams']|25|low|
-## Two Months Ago
+## Two  Months Ago
 ### Alerts
 | Date | Alert | Author | Risk Score | Severity |
 | --- | --- | --- | --- | --- |
